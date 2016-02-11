@@ -21,6 +21,9 @@ namespace cis237assignment2
         int xStart;
         int yStart;
 
+        int xPosition;
+        int yPosition;
+
         /// <summary>
         /// Default Constuctor to setup a new maze solver.
         /// </summary>
@@ -46,6 +49,8 @@ namespace cis237assignment2
             this.yStart = yStart;
 
             //Do work needed to use mazeTraversal recursive call and solve the maze.
+            
+            mazeTraversal();
         }
 
 
@@ -56,7 +61,53 @@ namespace cis237assignment2
         /// </summary>
         private void mazeTraversal()
         {
+            xPosition = this.xStart;
+            yPosition = this.yStart;
+
+            PrintMazeRoute();
+            this.maze[yPosition, xPosition] = 'x';
+            PrintMazeRoute();
+
             //Implement maze traversal recursive call
+            if (this.maze[yPosition, (xPosition + 1)] == '.')
+            {
+                MoveRight(yPosition, xPosition);
+            }
+            PrintMazeRoute();
+        }
+
+        private void MoveRight(int yPosition, int xPosition)
+        {
+            xPosition++;
+            this.maze[yPosition, xPosition] = 'x';
+        }
+
+        private void PrintMazeRoute()
+        {
+            int lineItem = 0;
+            int column = 0;
+
+            for (int a = 0; a < 12; a++)
+            {
+                int b = -1;
+                while (column < 12)
+                {
+                    b++;
+                    {
+                        Console.Write(this.maze[a, b]);
+                        column++;
+                        lineItem++;
+                        if (lineItem == 12)
+                        {
+                            Console.WriteLine(Environment.NewLine);
+                            lineItem = 0;
+                        }
+                    }
+                }
+                column = 0;
+            }
+            Console.WriteLine(Environment.NewLine);
+            Console.Read();
         }
     }
 }
